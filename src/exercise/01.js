@@ -84,7 +84,7 @@ async function updateUser(dispatch, user, updates) {
     return updatedUser
   } catch (error) {
     dispatch({type: 'fail update', error})
-    throw error
+    return Promise.reject(error)
   }
 }
 
@@ -109,7 +109,7 @@ function UserSettings() {
   function handleSubmit(event) {
     event.preventDefault()
     // 🐨 move the following logic to the `updateUser` function you create above
-    updateUser(userDispatch, user, formState)
+    updateUser(userDispatch, user, formState).catch(() => {})
   }
 
   return (
